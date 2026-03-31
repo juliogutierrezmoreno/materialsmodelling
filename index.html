@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Julio Gutiérrez Moreno — Computational Materials Science</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #09090f;
+  --surface: #111118;
+  --surface2: #16161f;
+  --border: rgba(255,255,255,0.07);
+  --border-hover: rgba(126,184,247,0.25);
+  --text: #e8e8f0;
+  --muted: #6a6a9a;
+  --muted2: #9090b8;
+  --accent: #7eb8f7;
+  --accent-dim: rgba(126,184,247,0.12);
+  --accent2: #a3f4c0;
+  --accent3: #f4a3c0;
+  --yellow: #f4d03f;
+  --purple: #c9b8ff;
+  --orange: #ffb347;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 1.7;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* Grid */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,0.012) 60px),
+    repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.012) 60px);
+  pointer-events: none; z-index: 0;
+}
+
+/* Cursor removed — using system default */
+
+/* ========================
+   NAV
+======================== */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 6vw;
+  height: 64px;
+  background: rgba(9,9,15,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex; gap: 0; list-style: none;
+}
+
+.nav-links a {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0 1.2rem;
+  height: 64px;
+  display: flex; align-items: center;
+  border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--text); border-bottom-color: var(--accent); }
+
+/* ========================
+   PAGES
+======================== */
+.page { display: none; min-height: 100vh; padding-top: 64px; position: relative; z-index: 1; }
+.page.active { display: block; }
+
+/* ========================
+   HERO (HOME)
+======================== */
+.hero {
+  min-height: calc(100vh - 64px);
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 5rem 10vw 5rem;
+  position: relative; overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute; inset: 0; pointer-events: none;
+}
+.hero-bg-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+}
+.hero-bg-glow.g1 { width:500px;height:500px;background:rgba(126,184,247,0.06);top:-80px;right:5vw; }
+.hero-bg-glow.g2 { width:350px;height:350px;background:rgba(163,244,192,0.04);bottom:80px;left:15vw; }
+
+.eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 1.4rem;
+  opacity: 0; animation: fadeUp .7s ease .15s forwards;
+}
+
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(3.2rem, 7vw, 6.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  max-width: 860px;
+  opacity: 0; animation: fadeUp .7s ease .3s forwards;
+}
+.hero h1 em { font-style: italic; color: var(--accent); }
+
+.hero-body {
+  margin-top: 2rem;
+  max-width: 600px;
+  color: var(--muted2);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  opacity: 0; animation: fadeUp .7s ease .45s forwards;
+}
+.hero-body strong { color: var(--text); font-weight: 400; }
+
+.quote-block {
+  margin-top: 3rem;
+  padding: 1.5rem 2rem;
+  border-left: 2px solid rgba(126,184,247,0.3);
+  max-width: 520px;
+  opacity: 0; animation: fadeUp .7s ease .6s forwards;
+}
+.quote-block blockquote {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--muted2);
+  line-height: 1.6;
+}
+.quote-block cite {
+  display: block;
+  margin-top: .6rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hero-pills {
+  margin-top: 3rem;
+  display: flex; flex-wrap: wrap; gap: .6rem;
+  opacity: 0; animation: fadeUp .7s ease .75s forwards;
+}
+.pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: .35rem .9rem;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  border-radius: 2px;
+  transition: border-color .2s, color .2s;
+}
+.pill:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Stats row */
+.stats {
+  margin-top: 5rem;
+  display: flex; gap: 0;
+  border-top: 1px solid var(--border);
+  opacity: 0; animation: fadeUp .7s ease .9s forwards;
+}
+.stat {
+  flex: 1;
+  padding: 2rem 2.5rem;
+  border-right: 1px solid var(--border);
+}
+.stat:last-child { border-right: none; }
+.stat-n {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem; font-weight: 300;
+  color: var(--accent); line-height: 1;
+}
+.stat-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--muted); margin-top: .4rem;
+}
+
+/* ========================
+   PROJECTS PAGE
+======================== */
+.page-header {
+  padding: 4rem 10vw 2rem;
+}
+.page-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.page-title em { font-style: italic; color: var(--accent); }
+.page-desc {
+  margin-top: 1rem;
+  color: var(--muted2);
+  max-width: 560px;
+  font-size: 1.05rem;
+}
+
+.projects-grid {
+  padding: 2rem 10vw 6rem;
+  display: flex; flex-direction: column; gap: 1px;
+}
+
+.proj-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  position: relative;
+  overflow: hidden;
+  transition: border-color .3s;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .6s ease, transform .6s ease, border-color .3s;
+}
+.proj-card.visible { opacity: 1; transform: none; }
+.proj-card:hover { border-color: var(--border-hover); }
+.proj-card::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(126,184,247,0.04), transparent 60%);
+  opacity: 0; transition: opacity .4s; pointer-events: none;
+}
+.proj-card:hover::after { opacity: 1; }
+
+.proj-body { padding: 2.5rem 2.5rem; border-right: 1px solid var(--border); display: flex; flex-direction: column; justify-content: space-between; }
+.proj-num { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: .2em; color: var(--muted); margin-bottom: 1.2rem; }
+.proj-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(1.4rem, 2.2vw, 2rem); line-height: 1.2; letter-spacing: -.01em; }
+.proj-title.c-blue { color: var(--accent); }
+.proj-title.c-green { color: var(--accent2); }
+.proj-title.c-yellow { color: var(--yellow); }
+.proj-title.c-pink { color: var(--accent3); }
+.proj-title.c-purple { color: var(--purple); }
+.proj-title.c-orange { color: var(--orange); }
+.proj-text { margin-top: 1rem; font-size: 0.97rem; color: var(--muted2); line-height: 1.8; flex-grow: 1; }
+.proj-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1.8rem; }
+.proj-tag { font-family:'DM Mono',monospace; font-size:.58rem; letter-spacing:.1em; text-transform:uppercase; padding:.3rem .75rem; border:1px solid var(--border); color:var(--muted); border-radius:2px; transition:border-color .2s,color .2s; }
+.proj-card:hover .proj-tag { border-color: rgba(126,184,247,0.2); color: var(--muted2); }
+
+/* Related papers */
+.proj-papers { margin-top: 1.6rem; padding-top: 1.2rem; border-top: 1px solid var(--border); }
+.proj-papers-label { font-family:'DM Mono',monospace; font-size:.58rem; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin-bottom:.75rem; }
+.proj-paper-link {
+  display: block;
+  font-size: .84rem;
+  color: var(--muted2);
+  text-decoration: none;
+  padding: .45rem 0;
+  border-bottom: 1px solid var(--border);
+  transition: color .2s, padding-left .2s;
+  line-height: 1.45;
+}
+.proj-paper-link:last-child { border-bottom: none; }
+.proj-paper-link:hover { color: var(--accent); padding-left: .4rem; }
+.proj-paper-year { font-family:'DM Mono',monospace; font-size:.6rem; color:var(--muted); margin-left:.4rem; vertical-align:middle; white-space:nowrap; }
+
+.proj-visual { padding: 2rem; display: flex; align-items: center; justify-content: center; background: var(--surface2); min-height: 240px; }
+.proj-svg { width: 110px; height: 110px; opacity: .55; transition: opacity .3s, transform .4s; }
+.proj-card:hover .proj-svg { opacity: 1; transform: scale(1.06) rotate(1.5deg); }
+
+/* Alt layout */
+.proj-card.alt { direction: rtl; }
+.proj-card.alt > * { direction: ltr; }
+.proj-card.alt .proj-body { border-right: none; border-left: 1px solid var(--border); }
+
+/* ========================
+   PUBLICATIONS PAGE
+======================== */
+.pubs-wrap { padding: 2rem 10vw 6rem; }
+
+.year-group { margin-bottom: 3.5rem; }
+.year-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.5rem; font-weight: 300;
+  color: rgba(126,184,247,0.2);
+  line-height: 1;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.pub-item {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border);
+  transition: background .2s;
+  opacity: 0; transform: translateY(12px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.pub-item.visible { opacity: 1; transform: none; }
+.pub-item:last-child { border-bottom: none; }
+.pub-num { font-family:'DM Mono',monospace; font-size:.6rem; color:var(--muted); line-height:2; }
+.pub-content {}
+.pub-title { font-size:1rem; color:var(--text); font-weight:400; line-height:1.55; }
+.pub-title a { color:var(--accent); text-decoration:none; transition:color .2s; }
+.pub-title a:hover { color:var(--text); }
+.pub-authors { font-size:.9rem; color:var(--muted2); margin-top:.35rem; line-height:1.55; }
+.pub-journal { font-size:.85rem; color:var(--muted); margin-top:.25rem; font-family:'DM Mono',monospace; letter-spacing:.03em; }
+.pub-badge {
+  display:inline-block; font-family:'DM Mono',monospace; font-size:.55rem;
+  letter-spacing:.1em; text-transform:uppercase;
+  padding:.2rem .6rem; border:1px solid rgba(163,244,192,0.3);
+  color:var(--accent2); border-radius:2px; margin-left:.6rem; vertical-align:middle;
+}
+
+/* ========================
+   JOIN US PAGE
+======================== */
+.join-wrap { padding: 2rem 10vw 6rem; }
+.join-intro { max-width: 640px; color: var(--muted2); font-size: 1.05rem; line-height: 1.85; margin-bottom: 3rem; }
+
+.fellowship-section { margin-bottom: 3rem; }
+.fellowship-section-title {
+  font-family: 'DM Mono', monospace;
+  font-size: .65rem; letter-spacing: .25em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 1.2rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.fellowship-section-title::after { content:''; flex:1; height:1px; background:var(--border); }
+
+.fellowship-list { display: flex; flex-direction: column; gap: .6rem; }
+.fellowship-item {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 2rem;
+  padding: 1rem 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: border-color .2s;
+  opacity: 0; transform: translateX(-12px);
+  transition: opacity .5s ease, transform .5s ease, border-color .2s;
+}
+.fellowship-item.visible { opacity: 1; transform: none; }
+.fellowship-item:hover { border-color: var(--border-hover); }
+.fellowship-name { font-size: .9rem; color: var(--text); }
+.fellowship-name a { color: var(--accent); text-decoration: none; transition: color .2s; }
+.fellowship-name a:hover { color: var(--text); }
+.fellowship-deadline { font-family: 'DM Mono', monospace; font-size: .6rem; letter-spacing: .1em; color: var(--muted); white-space: nowrap; }
+
+/* ========================
+   CONTACT PAGE
+======================== */
+.contact-wrap {
+  padding: 4rem 10vw 6rem;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+}
+.contact-left {}
+.contact-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.2;
+  letter-spacing: -.02em;
+  margin-bottom: 2rem;
+}
+.contact-tagline em { font-style: italic; color: var(--accent); }
+
+.contact-detail { margin-bottom: 1.8rem; }
+.contact-detail-label { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); margin-bottom:.4rem; }
+.contact-detail-val { font-size:.95rem; color:var(--text); }
+.contact-detail-val a { color:var(--accent); text-decoration:none;  }
+
+.contact-right { padding-top: 1rem; }
+.contact-links { display: flex; flex-direction: column; gap: .8rem; margin-top: 2rem; }
+.contact-link-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.2rem 1.5rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  text-decoration: none; 
+  transition: border-color .2s, transform .2s;
+}
+.contact-link-item:hover { border-color: var(--border-hover); transform: translateX(4px); }
+.contact-link-name { font-size: .9rem; color: var(--text); }
+.contact-link-arr { font-family:'DM Mono',monospace; font-size:.7rem; color:var(--accent); }
+
+/* ========================
+   SECTION DIVIDER
+======================== */
+.sdiv {
+  height: 1px; background: var(--border);
+  margin: 0 10vw;
+}
+.slabel {
+  font-family: 'DM Mono', monospace;
+  font-size: .6rem; letter-spacing: .25em; text-transform: uppercase;
+  color: var(--muted);
+  padding: 0 10vw;
+  margin-bottom: 2.5rem;
+  display: flex; align-items: center; gap: 1.2rem;
+}
+.slabel::after { content:''; flex:1; height:1px; background:var(--border); }
+
+/* ========================
+   FOOTER
+======================== */
+footer {
+  position: relative; z-index: 1;
+  padding: 2.5rem 10vw;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem;
+}
+footer p { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.1em; color:var(--muted); }
+.footer-nav { display:flex; gap:2rem; }
+.footer-nav a { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.1em; color:var(--muted); text-decoration:none;  transition:color .2s; }
+.footer-nav a:hover { color:var(--accent); }
+
+/* ========================
+   ANIMATIONS
+======================== */
+@keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
+
+/* ========================
+   RESPONSIVE
+======================== */
+@media (max-width: 900px) {
+  .proj-card, .proj-card.alt { grid-template-columns: 1fr; direction: ltr; }
+  .proj-visual { display: none; }
+  .proj-body { border-right: none !important; border-left: none !important; }
+  .contact-wrap { grid-template-columns: 1fr; gap: 3rem; }
+  .stats { flex-wrap: wrap; }
+  .stat { min-width: 45%; }
+  .hero { padding: 3rem 6vw; }
+  .page-header, .pubs-wrap, .projects-grid, .join-wrap { padding-left: 6vw; padding-right: 6vw; }
+  .contact-wrap { padding: 2rem 6vw 4rem; }
+  .slabel { padding: 0 6vw; }
+  nav { padding: 0 4vw; }
+  .nav-logo { display: none; }
+  .nav-links a { padding: 0 .7rem; font-size: .58rem; }
+  footer { padding: 2rem 6vw; flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ======================== NAV ======================== -->
+<nav>
+  <a class="nav-logo" href="#" onclick="showPage('home')">JGM</a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+    <li><a href="#" onclick="showPage('projects')" id="nav-projects">Projects</a></li>
+    <li><a href="#" onclick="showPage('publications')" id="nav-publications">Publications</a></li>
+    <li><a href="#" onclick="showPage('join')" id="nav-join">Join Us</a></li>
+    <li><a href="#" onclick="showPage('contact')" id="nav-contact">Get in Touch</a></li>
+  </ul>
+</nav>
+
+<!-- ==================== PAGE: HOME ==================== -->
+<div id="page-home" class="page active">
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-bg-glow g1"></div>
+      <div class="hero-bg-glow g2"></div>
+    </div>
+    <p class="eyebrow">Senior Researcher · Barcelona Supercomputing Center</p>
+    <h1>Computational<br><em>Materials</em><br>Science</h1>
+    <p class="hero-body">
+      I am <strong>Julio Gutiérrez Moreno</strong>, PhD and Senior Researcher leading the <strong>Materials Science team</strong> at BSC-CASE. My research centres on atomistic simulations — ab initio Density Functional Theory, beyond-DFT methods, and classical Molecular Dynamics — with a focus on novel methodologies for high-performance computing platforms.
+    </p>
+    <div class="quote-block">
+      <blockquote>"In theory there is no difference between theory and practice — in practice there is."</blockquote>
+      <cite>— Yogi Berra</cite>
+    </div>
+
+  </section>
+</div>
+
+<!-- ==================== PAGE: PROJECTS ==================== -->
+<div id="page-projects" class="page">
+  <div class="page-header">
+    <h1 class="page-title">Research <em>Projects</em></h1>
+    <p class="page-desc">A brief overview of the projects, materials, and topics I engage with. Get in touch for further detail on any of these.</p>
+  </div>
+
+  <div class="projects-grid">
+
+    <div class="proj-card">
+      <div class="proj-body">
+        <div>
+          <h2 class="proj-title c-blue">Ab Initio Simulations at the Exascale</h2>
+          <p class="proj-text">The Materials Science Group at BSC-CASE participates in the NOMAD and MaX Centres of Excellence. Funded by the European Commission, these projects adapt ab initio computational methods for incoming exascale platforms. We contribute to benchmarking and development of codes including SIESTA, Abinit, exciting, FHI-aims and GPAW, and libraries such as ELPA.</p>
+        </div>
+        <div class="proj-tags">
+          <span class="proj-tag">NOMAD CoE</span>
+          <span class="proj-tag">MaX CoE</span>
+          <span class="proj-tag">HPC</span>
+          <span class="proj-tag">Exascale</span>
+          <span class="proj-tag">SIESTA</span>
+        </div>
+        <div class="proj-papers">
+          <p class="proj-papers-label">Related papers</p>
+          <a class="proj-paper-link" href="https://materialsmodelling.wordpress.com/wp-content/uploads/2025/02/24.-ab-initio-guided-atomistic-modelling-of-nanomaterials-on-exascale-hpc-platforms-1.pdf" target="_blank">Ab initio guided atomistic modelling of nanomaterials on exascale HPC platforms <span class="proj-paper-year">2024</span></a>
+          <a class="proj-paper-link" href="https://open-research-europe.ec.europa.eu/articles/4-35" target="_blank">The NOMAD mini-apps: a suite of kernels enabling co-design in HPC <span class="proj-paper-year">2024</span></a>
+          <a class="proj-paper-link" href="https://open-research-europe.ec.europa.eu/articles/4-165" target="_blank">Co-designing ab initio electronic structure methods on a RISC-V vector architecture <span class="proj-paper-year">2024</span></a>
+        </div>
+      </div>
+      <div class="proj-visual">
+        <svg class="proj-svg" viewBox="0 0 110 110" fill="none">
+          <circle cx="55" cy="55" r="36" stroke="#7eb8f7" stroke-width="0.8" stroke-dasharray="4 3"/>
+          <circle cx="55" cy="55" r="22" stroke="#7eb8f7" stroke-width="0.8" opacity=".5"/>
+          <circle cx="55" cy="55" r="9" stroke="#7eb8f7" stroke-width="0.8" opacity=".3"/>
+          <circle cx="55" cy="19" r="4" fill="#7eb8f7"/>
+          <circle cx="87" cy="72" r="4" fill="#7eb8f7" opacity=".7"/>
+          <circle cx="23" cy="72" r="4" fill="#7eb8f7" opacity=".7"/>
+          <circle cx="55" cy="55" r="2" fill="#7eb8f7"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="proj-card alt">
+      <div class="proj-body">
+        <div>
+          <h2 class="proj-title c-green">Data Science for Materials</h2>
+          <p class="proj-text">Our team serves as one of the main HPC nodes of the Materials Commons for Europe initiative — a collaborative platform for sharing and managing materials science research data across the EU. Applying FAIR principles, it standardises how experimental and computational results are stored, accelerating discovery from next-generation alloys to sustainable energy solutions.</p>
+        </div>
+        <div class="proj-tags">
+          <span class="proj-tag">FAIR Data</span>
+          <span class="proj-tag">Materials Commons</span>
+          <span class="proj-tag">Open Science</span>
+          <span class="proj-tag">ML</span>
+        </div>
+        <div class="proj-papers">
+          <p class="proj-papers-label">Related papers</p>
+          <a class="proj-paper-link" href="https://materialsmodelling.wordpress.com/wp-content/uploads/2025/02/24.-ab-initio-guided-atomistic-modelling-of-nanomaterials-on-exascale-hpc-platforms-1.pdf" target="_blank">Ab initio guided atomistic modelling of nanomaterials on exascale HPC platforms <span class="proj-paper-year">2024</span></a>
+          <a class="proj-paper-link" href="https://materialsmodelling.wordpress.com/wp-content/uploads/2022/03/14.-a-review-of-recent-progress-in-thermoelectric-materials-through-computational-methods.pdf" target="_blank">A review of recent advances in computational methods for thermoelectric research <span class="proj-paper-year">2020</span></a>
+        </div>
+      </div>
+      <div class="proj-visual">
+        <svg class="proj-svg" viewBox="0 0 110 110" fill="none">
+          <rect x="12" y="52" width="11" height="38" fill="#a3f4c0" opacity=".6"/>
+          <rect x="30" y="38" width="11" height="52" fill="#a3f4c0" opacity=".75"/>
+          <rect x="48" y="22" width="11" height="68" fill="#a3f4c0" opacity=".9"/>
+          <rect x="66" y="42" width="11" height="48" fill="#a3f4c0" opacity=".75"/>
+          <rect x="84" y="32" width="11" height="58" fill="#a3f4c0" opacity=".6"/>
+          <line x1="8" y1="95" x2="102" y2="95" stroke="#a3f4c0" stroke-width=".7" opacity=".3"/>
+          <polyline points="17,57 35,43 53,27 71,47 89,37" stroke="#a3f4c0" stroke-width="1.5" fill="none" opacity=".8"/>
+          <circle cx="17" cy="57" r="2.5" fill="#a3f4c0"/>
+          <circle cx="35" cy="43" r="2.5" fill="#a3f4c0"/>
+          <circle cx="53" cy="27" r="2.5" fill="#a3f4c0"/>
+          <circle cx="71" cy="47" r="2.5" fill="#a3f4c0"/>
+          <circle cx="89" cy="37" r="2.5" fill="#a3f4c0"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-body">
+        <div>
+          <h2 class="proj-title c-yellow">Metal-Oxide Surfaces &amp; 2D Nanosheets</h2>
+          <p class="proj-text">Theory-guided screening and atomically precise synthesis for nanostructured materials in catalysis, batteries, and water depollution. I coordinate an EIG-Concert Japan project on machine-learning-driven design of atomically-layered heterostructures for green H₂ production, in collaboration with partners in Japan and Turkey.</p>
+        </div>
+        <div class="proj-tags">
+          <span class="proj-tag">Green H₂</span>
+          <span class="proj-tag">Catalysis</span>
+          <span class="proj-tag">2D Materials</span>
+          <span class="proj-tag">HfO₂</span>
+          <span class="proj-tag">TiO₂</span>
+        </div>
+        <div class="proj-papers">
+          <p class="proj-papers-label">Related papers</p>
+          <a class="proj-paper-link" href="https://materialsmodelling.wordpress.com/wp-content/uploads/2025/02/28.-catalytic-synergy-between-pd-nanoclusters-and-ligand-functionalized-layered-silicates-for-improved-formic-acid-dehydrogenation.pdf" target="_blank">Catalytic synergy between Pd nanoclusters and ligand-functionalised layered silicates <span class="proj-paper-year">2024</span></a>
+          <a class="proj-paper-link" href="https://pubs.acs.org/doi/abs/10.1021/acsami.2c01474" target="_blank">Controlled synthesis of perforated oxide nanosheets for superior water purification <span class="proj-paper-year">2022</span></a>
+          <a class="proj-paper-link" href="https://materialsmodelling.wordpress.com/wp-content/uploads/2022/03/09.-direct-visualization-of-independent-ta-centers-supported-on-twodimensional-tio2-nanosheets.pdf" target="_blank">Direct visualization of independent Ta centers on 2D TiO₂ nanosheets <span class="proj-paper-year">2019</span></a>
+        </div>
+      </div>
+      <div class="proj-visual">
+        <svg class="proj-svg" viewBox="0 0 110 110" fill="none">
+          <ellipse cx="55" cy="78" rx="38" ry="11" stroke="#f4d03f" stroke-width=".8" opacity=".3" fill="rgba(244,208,63,.04)"/>
+          <ellipse cx="55" cy="62" rx="38" ry="11" stroke="#f4d03f" stroke-width=".8" opacity=".5" fill="rgba(244,208,63,.06)"/>
+          <ellipse cx="55" cy="46" rx="38" ry="11" stroke="#f4d03f" stroke-width=".8" opacity=".7" fill="rgba(244,208,63,.08)"/>
+          <ellipse cx="55" cy="30" rx="38" ry="11" stroke="#f4d03f" stroke-width="1" fill="rgba(244,208,63,.12)"/>
+          <circle cx="32" cy="30" r="3" fill="#f4d03f" opacity=".9"/>
+          <circle cx="48" cy="26" r="3" fill="#f4d03f" opacity=".9"/>
+          <circle cx="66" cy="30" r="3" fill="#f4d03f" opacity=".9"/>
+          <circle cx="82" cy="26" r="3" fill="#f4d03f" opacity=".9"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="proj-card alt">
+      <div class="proj-body">
+        <div>
+          <h2 class="proj-title c-pink">Fusion Materials &amp; Low-Scaling Ab Initio</h2>
+          <p class="proj-text">Standard DFT scales as O(N³). Linear-scaling algorithms allow doubling atom count with only double computation time. In the FusionCAT project we use the LS version of BigDFT to simulate neutron-irradiation defects in tungsten — the primary plasma-facing candidate material for fusion power — with ab initio accuracy at realistic scales.</p>
+        </div>
+        <div class="proj-tags">
+          <span class="proj-tag">BigDFT</span>
+          <span class="proj-tag">Tungsten</span>
+          <span class="proj-tag">Fusion</span>
+          <span class="proj-tag">FusionCAT</span>
+          <span class="proj-tag">LS-DFT</span>
+        </div>
+        <div class="proj-papers">
+          <p class="proj-papers-label">Related papers</p>
+          <a class="proj-paper-link" href="https://materialsmodelling.wordpress.com/wp-content/uploads/2022/03/20.-lifetime-effects-and-satellites-in-the-photoelectron-spectrum-of-tungsten-metal.pdf" target="_blank">Lifetime effects and satellites in the photoelectron spectrum of tungsten metal <span class="proj-paper-year">2022</span></a>
+          <a class="proj-paper-link" href="https://materialsmodelling.wordpress.com/wp-content/uploads/2022/03/21.-origin-of-enhanced-thermal-atomic-layer-etching-of-amorphous-hfo2.pdf" target="_blank">Origin of enhanced thermal atomic layer etching of amorphous HfO₂ <span class="proj-paper-year">2022</span></a>
+        </div>
+      </div>
+      <div class="proj-visual">
+        <svg class="proj-svg" viewBox="0 0 110 110" fill="none">
+          <ellipse cx="55" cy="55" rx="42" ry="18" stroke="#f4a3c0" stroke-width="1" opacity=".4"/>
+          <ellipse cx="55" cy="55" rx="27" ry="12" stroke="#f4a3c0" stroke-width="1" opacity=".65"/>
+          <ellipse cx="55" cy="55" rx="13" ry="6" stroke="#f4a3c0" stroke-width="1" opacity=".9"/>
+          <circle cx="55" cy="55" r="4.5" fill="#f4a3c0" opacity=".85"/>
+          <path d="M55 55 Q75 35 95 50" stroke="#f4a3c0" stroke-width=".8" fill="none" opacity=".5" stroke-dasharray="3 2"/>
+          <path d="M55 55 Q35 75 15 60" stroke="#f4a3c0" stroke-width=".8" fill="none" opacity=".5" stroke-dasharray="3 2"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-body">
+        <div>
+          <h2 class="proj-title c-purple">Antifouling Coatings for Water Sensors</h2>
+          <p class="proj-text">In the UisceSense project, theoretical methods simulate biomolecule adsorption at modified surfaces to develop new coatings preventing biofouling on water sensor surfaces. Research covered TiN-TiO₂ interfaces, surfaces, and neonicotinoid sensing for real-time detection of hazardous substances in natural water sources.</p>
+        </div>
+        <div class="proj-tags">
+          <span class="proj-tag">Biofouling</span>
+          <span class="proj-tag">TiN–TiO₂</span>
+          <span class="proj-tag">SERS</span>
+          <span class="proj-tag">Water Quality</span>
+        </div>
+        <div class="proj-papers">
+          <p class="proj-papers-label">Related papers</p>
+          <a class="proj-paper-link" href="https://materialsmodelling.wordpress.com/wp-content/uploads/2025/02/25.-sers-based-detection-of-herbicide-mcp-using-electrochemically-synthesized-2d-silver-nanodendrites-functionalized-with-cyclodextrin.pdf" target="_blank">2D silver nanodendrites functionalised with cyclodextrin for SERS-based detection of MCPA <span class="proj-paper-year">2024</span></a>
+          <a class="proj-paper-link" href="https://materialsmodelling.wordpress.com/wp-content/uploads/2022/03/13.-highly-sensitive-sers-detection-of-neonicotinoid-pesticides.-complete-raman-spectral-assignment-of-clothianidin-and-imid.pdf" target="_blank">Highly sensitive SERS detection of neonicotinoid pesticides <span class="proj-paper-year">2020</span></a>
+        </div>
+      </div>
+      <div class="proj-visual">
+        <svg class="proj-svg" viewBox="0 0 110 110" fill="none">
+          <path d="M55 16 Q76 44 76 62 A21 21 0 0 1 34 62 Q34 44 55 16Z" stroke="#c9b8ff" stroke-width="1" fill="rgba(201,184,255,.07)"/>
+          <line x1="18" y1="90" x2="92" y2="90" stroke="#c9b8ff" stroke-width=".8" opacity=".45"/>
+          <line x1="13" y1="95" x2="97" y2="95" stroke="#c9b8ff" stroke-width=".8" opacity=".25"/>
+          <circle cx="55" cy="58" r="4.5" fill="#c9b8ff" opacity=".7"/>
+          <circle cx="45" cy="51" r="3" stroke="#c9b8ff" stroke-width=".8" fill="none" opacity=".5"/>
+          <circle cx="65" cy="51" r="3" stroke="#c9b8ff" stroke-width=".8" fill="none" opacity=".5"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="proj-card alt">
+      <div class="proj-body">
+        <div>
+          <h2 class="proj-title c-orange">Low-Rigidity Ti Alloys</h2>
+          <p class="proj-text">Developing a computational procedure from ab initio toward large-scale molecular dynamics for investigating and designing low-rigidity β-type Ti-based alloys for orthopaedic implants. Studied structural, electronic, and mechanical properties of TiNb alloys, as well as ternary systems TiNbIn, TiNbSn, and TiNbHf.</p>
+        </div>
+        <div class="proj-tags">
+          <span class="proj-tag">TiNb Alloys</span>
+          <span class="proj-tag">Biomedical</span>
+          <span class="proj-tag">β-phase</span>
+          <span class="proj-tag">Elasticity</span>
+          <span class="proj-tag">MD</span>
+        </div>
+        <div class="proj-papers">
+          <p class="proj-papers-label">Related papers</p>
+          <a class="proj-paper-link" href="https://materialsmodelling.wordpress.com/wp-content/uploads/2022/03/07.-an-ab-initio-study-of-the-structural-and-mechanical-alterations-of-ti-nb-alloys.pdf" target="_blank">Ab-initio study on structural and mechanical alterations of Ti-Nb alloys <span class="proj-paper-year">2018</span></a>
+          <a class="proj-paper-link" href="https://materialsmodelling.wordpress.com/wp-content/uploads/2022/03/03.-ab-initio-and-experimental-study-of-phase-stability-of-ti-nb-alloys.pdf" target="_blank">Ab-initio and experimental study of phase stability of Ti-Nb alloys <span class="proj-paper-year">2017</span></a>
+          <a class="proj-paper-link" href="https://materialsmodelling.wordpress.com/wp-content/uploads/2022/03/02.-elastic-softening-of-ceb2-type-tie28093nb-alloysby-indiumin-additions.pdf" target="_blank">Elastic softening of β-type Ti-Nb alloys by indium additions <span class="proj-paper-year">2014</span></a>
+        </div>
+      </div>
+      <div class="proj-visual">
+        <svg class="proj-svg" viewBox="0 0 110 110" fill="none">
+          <line x1="20" y1="20" x2="90" y2="20" stroke="#ffb347" stroke-width=".8" opacity=".5"/>
+          <line x1="20" y1="55" x2="90" y2="55" stroke="#ffb347" stroke-width=".8" opacity=".5"/>
+          <line x1="20" y1="90" x2="90" y2="90" stroke="#ffb347" stroke-width=".8" opacity=".5"/>
+          <line x1="20" y1="20" x2="20" y2="90" stroke="#ffb347" stroke-width=".8" opacity=".5"/>
+          <line x1="55" y1="20" x2="55" y2="90" stroke="#ffb347" stroke-width=".8" opacity=".5"/>
+          <line x1="90" y1="20" x2="90" y2="90" stroke="#ffb347" stroke-width=".8" opacity=".5"/>
+          <circle cx="20" cy="20" r="4" fill="#ffb347" opacity=".9"/>
+          <circle cx="55" cy="20" r="4" fill="#ffb347" opacity=".9"/>
+          <circle cx="90" cy="20" r="4" fill="#ffb347" opacity=".9"/>
+          <circle cx="20" cy="55" r="4" fill="#ffb347" opacity=".9"/>
+          <circle cx="55" cy="55" r="5" fill="#ffb347"/>
+          <circle cx="90" cy="55" r="4" fill="#ffb347" opacity=".9"/>
+          <circle cx="20" cy="90" r="4" fill="#ffb347" opacity=".9"/>
+          <circle cx="55" cy="90" r="4" fill="#ffb347" opacity=".9"/>
+          <circle cx="90" cy="90" r="4" fill="#ffb347" opacity=".9"/>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== PAGE: PUBLICATIONS ==================== -->
+<div id="page-publications" class="page">
+  <div class="page-header">
+    <h1 class="page-title"><em>Publications</em></h1>
+    <p class="page-desc">Papers with direct download links. An up-to-date list is also available on <a href="https://scholar.google.com/citations?user=b8GbJRMAAAAJ&hl=en" style="color:var(--accent);text-decoration:none;" target="_blank">Google Scholar</a>.</p>
+  </div>
+
+  <div class="pubs-wrap">
+
+    <div class="year-group">
+      <div class="year-label">2024</div>
+      <div class="pub-item">
+        <div class="pub-num">28</div>
+        <div class="pub-content">
+          <p class="pub-title"><a href="https://materialsmodelling.wordpress.com/wp-content/uploads/2025/02/28.-catalytic-synergy-between-pd-nanoclusters-and-ligand-functionalized-layered-silicates-for-improved-formic-acid-dehydrogenation.pdf" target="_blank">Catalytic synergy between Pd nanoclusters and ligand-functionalised layered silicates for improved formic acid dehydrogenation</a></p>
+          <p class="pub-authors">E. Doustkhah, M. Yusufoğlu, H. El-Hosainy, H. Zarenezhad, Y. Ide, J.J. Gutiérrez Moreno, M. Assadi</p>
+          <p class="pub-journal">ACS Applied Materials &amp; Interfaces 16 (2024) 64736–64744 · DOI: 10.1021/acsami.4c13770</p>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-num">27</div>
+        <div class="pub-content">
+          <p class="pub-title"><a href="https://open-research-europe.ec.europa.eu/articles/4-165" target="_blank">Co-designing ab initio electronic structure methods on a RISC-V vector architecture</a></p>
+          <p class="pub-authors">R. Grima Torres, P. Vizcaíno, F. Mantovani, J.J. Gutiérrez Moreno</p>
+          <p class="pub-journal">Open Research Europe (2024) 4:165 · DOI: 10.12688/openreseurope.18321.1</p>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-num">26</div>
+        <div class="pub-content">
+          <p class="pub-title"><a href="https://open-research-europe.ec.europa.eu/articles/4-35" target="_blank">The NOMAD mini-apps: a suite of kernels from ab initio electronic structure codes enabling co-design in HPC</a></p>
+          <p class="pub-authors">I. Mas Magre, R. Grima Torres, J.M. Cela Espín, J.J. Gutiérrez Moreno</p>
+          <p class="pub-journal">Open Research Europe (2024) 4:35 · DOI: 10.12688/openreseurope.16920.2</p>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-num">25</div>
+        <div class="pub-content">
+          <p class="pub-title"><a href="https://materialsmodelling.wordpress.com/wp-content/uploads/2025/02/25.-sers-based-detection-of-herbicide-mcp-using-electrochemically-synthesized-2d-silver-nanodendrites-functionalized-with-cyclodextrin.pdf" target="_blank">Electrochemical synthesis of 2D-silver nanodendrites functionalised with cyclodextrin for SERS-based detection of herbicide MCPA</a></p>
+          <p class="pub-authors">R. Daly, T. Narayan, F. Díaz, H. Shao, J.J. Gutiérrez Moreno, M. Nolan, A. O'Riordan, P. Lovera</p>
+          <p class="pub-journal">Nanotechnology 35 (2024) 285704 · DOI: 10.1088/1361-6528/ad373c</p>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-num">24</div>
+        <div class="pub-content">
+          <p class="pub-title"><a href="https://materialsmodelling.wordpress.com/wp-content/uploads/2025/02/24.-ab-initio-guided-atomistic-modelling-of-nanomaterials-on-exascale-hpc-platforms-1.pdf" target="_blank">Ab initio guided atomistic modelling of nanomaterials on exascale high-performance computing platforms</a><span class="pub-badge">Review</span></p>
+          <p class="pub-authors">J.J. Gutiérrez Moreno</p>
+          <p class="pub-journal">Nano Futures 8 (2024) 012501 · DOI: 10.1088/2399-1984/ad32d2</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="year-group">
+      <div class="year-label">2023</div>
+      <div class="pub-item">
+        <div class="pub-num">23</div>
+        <div class="pub-content">
+          <p class="pub-title"><a href="https://materialsmodelling.wordpress.com/wp-content/uploads/2025/02/23.-anomalous-growth-of-dislocation-density-in-titanium-during-recovery.pdf" target="_blank">Anomalous growth of dislocation density in titanium during recovery</a></p>
+          <p class="pub-authors">I. Ivanov, J.J. Gutiérrez Moreno, K. Emurlaev, D. Lazurenko, I. Bataev</p>
+          <p class="pub-journal">Materials Today Communications 35 (2023) 106298 · DOI: 10.1016/j.mtcomm.2023.106298</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="year-group">
+      <div class="year-label">2022</div>
+      <div class="pub-item">
+        <div class="pub-num">22</div>
+        <div class="pub-content">
+          <p class="pub-title"><a href="https://pubs.acs.org/doi/abs/10.1021/acsami.2c01474" target="_blank">Controlled synthesis of perforated oxide nanosheets with high density nanopores showing superior water purification performance</a></p>
+          <p class="pub-authors">Y. Li, J.J. Gutiérrez Moreno, Z. Song, D. Liu, M. Wang, A. Ramiere, Z. Feng, Q.J. Niu, T. Sasaki, X. Cai, M. Nolan</p>
+          <p class="pub-journal">ACS Applied Materials &amp; Interfaces 14, 16 (2022) 18513–18524 · DOI: 10.1021/acsami.2c01474</p>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-num">21</div>
+        <div class="pub-content">
+          <p class="pub-title"><a href="https://materialsmodelling.wordpress.com/wp-content/uploads/2022/03/21.-origin-of-enhanced-thermal-atomic-layer-etching-of-amorphous-hfo2.pdf" target="_blank">Origin of enhanced thermal atomic layer etching of amorphous HfO₂</a><span class="pub-badge">Editor's Pick</span></p>
+          <p class="pub-authors">R. Mullins, J.J. Gutiérrez Moreno, M. Nolan</p>
+          <p class="pub-journal">J. Vacuum Science &amp; Technology A 40 (2022) 022604 · DOI: 10.1116/6.0001614</p>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-num">20</div>
+        <div class="pub-content">
+          <p class="pub-title"><a href="https://materialsmodelling.wordpress.com/wp-content/uploads/2022/03/20.-lifetime-effects-and-satellites-in-the-photoelectron-spectrum-of-tungsten-metal.pdf" target="_blank">Lifetime effects and satellites in the photoelectron spectrum of tungsten metal</a></p>
+          <p class="pub-authors">C. Kalha, L.E. Ratcliff, J.J. Gutiérrez Moreno, S. Mohr, M. Mantsinen, N.K. Fernando et al.</p>
+          <p class="pub-journal">Physical Review B 105 (2022) 045129 · DOI: 10.1103/PhysRevB.105.045129</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="year-group">
+      <div class="year-label">2021</div>
+      <div class="pub-item">
+        <div class="pub-num">19</div>
+        <div class="pub-content">
+          <p class="pub-title"><a href="https://materialsmodelling.wordpress.com/wp-content/uploads/2022/03/19.-exceptionally-high-saturation-magnetisation-in-eu-doped-magnetite-stabilised-by-spine28093orbit-interaction.pdf" target="_blank">Exceptionally high saturation magnetisation in Eu-doped magnetite stabilised by spin-orbit interaction</a></p>
+          <p class="pub-authors">H. Assadi, J.J. Gutiérrez Moreno, D. Hanaor, H. Katayama-Yoshida</p>
+          <p class="pub-journal">Physical Chemistry Chemical Physics 23 (2021) 20129–20137 · DOI: 10.1039/D1CP02164H</p>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-num">18</div>
+        <div class="pub-content">
+          <p class="pub-title"><a href="https://materialsmodelling.wordpress.com/wp-content/uploads/2022/03/18.-thermal-and-oxidation-stability-of-tixw1-x-diffusion-barriers-investigated-by-soft-and-hard-x-ray-photoelectron-spectroscopy.pdf" target="_blank">Thermal and oxidation stability of TiₓW₁₋ₓ diffusion barriers investigated by soft and hard X-ray photoelectron spectroscopy</a></p>
+          <p class="pub-authors">C. Kalha, S. Bichelmaier, N.K. Fernando, J. Berens, J.J. Gutiérrez Moreno, S. Mohr, L.E. Ratcliff et al.</p>
+          <p class="pub-journal">Journal of Applied Physics 129 (2021) 195302 · DOI: 10.1063/5.0048304</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="year-group">
+      <div class="year-label">2020</div>
+      <div class="pub-item">
+        <div class="pub-num">16</div>
+        <div class="pub-content">
+          <p class="pub-title"><a href="https://materialsmodelling.wordpress.com/wp-content/uploads/2022/03/16.-a-synergetic-promotion-of-sodium-ion-storage-in-titania-nanosheets-by-superlattice-assembly-with-reduced-graphene-oxide-and-fe-doping-strategy.pdf" target="_blank">A synergetic promotion of sodium-ion storage in titania nanosheets by superlattice assembly with rGO and Fe-doping</a></p>
+          <p class="pub-authors">Y. Tian, J.J. Gutiérrez Moreno, Z. Lu, L. Li, M. Hu, D. Liu, Z. Jian, X. Cai</p>
+          <p class="pub-journal">Chemical Engineering Journal 407, 127198 · DOI: 10.1016/j.cej.2020.127198</p>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-num">14</div>
+        <div class="pub-content">
+          <p class="pub-title"><a href="https://materialsmodelling.wordpress.com/wp-content/uploads/2022/03/14.-a-review-of-recent-progress-in-thermoelectric-materials-through-computational-methods.pdf" target="_blank">A review of recent advances in computational methods for thermoelectric research</a><span class="pub-badge">Review</span></p>
+          <p class="pub-authors">J.J. Gutiérrez Moreno, J. Cao, M. Fronzi, H. Assadi</p>
+          <p class="pub-journal">Materials for Renewable and Sustainable Energy 9 (2020) 16 · DOI: 10.1007/s40243-020-00175-5</p>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-num">13</div>
+        <div class="pub-content">
+          <p class="pub-title"><a href="https://materialsmodelling.wordpress.com/wp-content/uploads/2022/03/13.-highly-sensitive-sers-detection-of-neonicotinoid-pesticides.-complete-raman-spectral-assignment-of-clothianidin-and-imid.pdf" target="_blank">Highly sensitive SERS detection of neonicotinoid pesticides. Complete Raman spectral assignment of clothianidin and imidacloprid</a><span class="pub-badge">Cover</span></p>
+          <p class="pub-authors">N. Creedon, P. Lovera, J.J. Gutiérrez Moreno, M. Nolan, A. O'Riordan</p>
+          <p class="pub-journal">J. Physical Chemistry A 124, 36 (2020) 7238–7247 · DOI: 10.1021/acs.jpca.0c02832</p>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-num">11</div>
+        <div class="pub-content">
+          <p class="pub-title"><a href="https://materialsmodelling.wordpress.com/wp-content/uploads/2022/03/11.-computational-study-of-aptes-surface-functionalization-of-diatomlike-amorphous-sio2-surfaces-for-heavy-metal-adsorption.pdf" target="_blank">A computational study of APTES surface functionalisation of diatom-like amorphous SiO₂ surfaces for heavy metal adsorption</a></p>
+          <p class="pub-authors">J.J. Gutiérrez Moreno, K. Pan, Y. Wang, W. Li</p>
+          <p class="pub-journal">Langmuir 36 (2020) 5680–5689 · DOI: 10.1021/acs.langmuir.9b03755</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="year-group">
+      <div class="year-label">2017–2019</div>
+      <div class="pub-item">
+        <div class="pub-num">9</div>
+        <div class="pub-content">
+          <p class="pub-title"><a href="https://materialsmodelling.wordpress.com/wp-content/uploads/2022/03/09.-direct-visualization-of-independent-ta-centers-supported-on-twodimensional-tio2-nanosheets.pdf" target="_blank">Direct visualization of independent Ta centers supported on 2D TiO₂ nanosheets</a></p>
+          <p class="pub-authors">Z. Bo, N. Thornburg, L. Peng, J.J. Gutiérrez Moreno, M. Nolan, L.D. Marks, J.M. Notestein</p>
+          <p class="pub-journal">Nano Letters 19 (2019) 8103–8108 · DOI: 10.1021/acs.nanolett.9b03305</p>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-num">7</div>
+        <div class="pub-content">
+          <p class="pub-title"><a href="https://materialsmodelling.wordpress.com/wp-content/uploads/2022/03/07.-an-ab-initio-study-of-the-structural-and-mechanical-alterations-of-ti-nb-alloys.pdf" target="_blank">Ab-initio study on the structural and mechanical alterations of Ti-Nb alloys upon Nb substitutions</a></p>
+          <p class="pub-authors">J.J. Gutiérrez Moreno, D.G. Papageorgiou, G.A. Evangelakis, Ch.E. Lekka</p>
+          <p class="pub-journal">Journal of Applied Physics 124 (2018) 245102 · DOI: 10.1063/1.5025926</p>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-num">3</div>
+        <div class="pub-content">
+          <p class="pub-title"><a href="https://materialsmodelling.wordpress.com/wp-content/uploads/2022/03/03.-ab-initio-and-experimental-study-of-phase-stability-of-ti-nb-alloys.pdf" target="_blank">Ab-initio and experimental study of phase stability of Ti-Nb alloys</a></p>
+          <p class="pub-authors">J.J. Gutiérrez Moreno, M. Bönisch, N. Panagiotopoulos, M. Calin, D.G. Papageorgiou et al.</p>
+          <p class="pub-journal">Journal of Alloys and Compounds 696 (2017) 481–489 · DOI: 10.1016/j.jallcom.2016.11.231</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="year-group">
+      <div class="year-label">2014</div>
+      <div class="pub-item">
+        <div class="pub-num">2</div>
+        <div class="pub-content">
+          <p class="pub-title"><a href="https://materialsmodelling.wordpress.com/wp-content/uploads/2022/03/02.-elastic-softening-of-ceb2-type-tie28093nb-alloysby-indiumin-additions.pdf" target="_blank">Elastic softening of β-type Ti-Nb alloys by indium (In) additions</a></p>
+          <p class="pub-authors">M. Calin, A. Helth, J.J. Gutiérrez Moreno, M. Bönisch, V. Brackmann, L. Giebeler et al.</p>
+          <p class="pub-journal">J. Mechanical Behavior of Biomedical Materials 39 (2014) 162–174 · DOI: 10.1016/j.jmbbm.2014.07.010</p>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-num">1</div>
+        <div class="pub-content">
+          <p class="pub-title"><a href="https://materialsmodelling.wordpress.com/wp-content/uploads/2022/03/01.-the-role-of-sn-doping-in-the-b-type-tie2809325-at-nb-alloys-experiment-and-ab-initio-calculations.pdf" target="_blank">The role of Sn doping in the β-type Ti-25at%Nb alloys: experiment and ab initio calculations</a></p>
+          <p class="pub-authors">J.J. Gutiérrez Moreno, Y. Guo, K. Georgarakis, A.R. Yavari, G.A. Evangelakis, Ch.E. Lekka</p>
+          <p class="pub-journal">Journal of Alloys and Compounds 615 (2014) S676–S679 · DOI: 10.1016/j.jallcom.2014.05.024</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== PAGE: JOIN US ==================== -->
+<div id="page-join" class="page">
+  <div class="page-header">
+    <h1 class="page-title"><em>Join</em> Us</h1>
+  </div>
+  <div class="join-wrap">
+    <p class="join-intro">We typically advertise open positions through the BSC website and dedicated networks such as Psi-k, but we are always happy to receive spontaneous applications and provide support in preparing projects aligned with our research interests. Below is a non-exhaustive list of fellowships for which we can support candidates. Dates are estimates — please verify all information as links and deadlines change year to year.</p>
+
+    <div class="fellowship-section">
+      <div class="fellowship-section-title">Postdoctoral Positions</div>
+      <div class="fellowship-list">
+        <div class="fellowship-item">
+          <span class="fellowship-name"><a href="https://marie-sklodowska-curie-actions.ec.europa.eu/actions/postdoctoral-fellowships" target="_blank">Marie Skłodowska-Curie Postdoctoral Individual Fellowships</a></span>
+          <span class="fellowship-deadline">Opens ~April</span>
+        </div>
+        <div class="fellowship-item">
+          <span class="fellowship-name"><a href="https://lacaixafoundation.org/en/postdoctoral-junior-leader-fellowships" target="_blank">La Caixa Postdoctoral Junior Leader — Incoming &amp; Retaining</a></span>
+          <span class="fellowship-deadline">Deadline ~October</span>
+        </div>
+        <div class="fellowship-item">
+          <span class="fellowship-name"><a href="https://agaur.gencat.cat/en/beques-i-ajuts/convocatories-per-temes/" target="_blank">AGAUR Beatriu de Pinos</a></span>
+          <span class="fellowship-deadline">Opens ~December · Deadline ~February</span>
+        </div>
+        <div class="fellowship-item">
+          <span class="fellowship-name"><a href="https://www.fundacionareces.es/" target="_blank">Ayudas Fundación Ramón Areces — Contratación Jóvenes Doctores</a></span>
+          <span class="fellowship-deadline">Opens ~September–October</span>
+        </div>
+        <div class="fellowship-item">
+          <span class="fellowship-name"><a href="https://euro-fusion.org/eurofusion-news/applications-open-for-the-2026-eurofusion-bernard-bigot-researcher-grants/" target="_blank">EUROfusion Bernard Bigot Researcher Grants</a></span>
+          <span class="fellowship-deadline">Opens ~April–May</span>
+        </div>
+        <div class="fellowship-item">
+          <span class="fellowship-name"><a href="https://euro-fusion.org/eurofusion-news/applications-open-for-the-2026-eurofusion-bernard-bigot-researcher-grants/" target="_blank">EUROfusion Engineering Grants</a></span>
+          <span class="fellowship-deadline">Opens ~June–July</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fellowship-section">
+      <div class="fellowship-section-title">PhD Positions</div>
+      <div class="fellowship-list">
+        <div class="fellowship-item">
+          <span class="fellowship-name"><a href="https://lacaixafoundation.org/en/doctoral-inphinit-fellowships" target="_blank">La Caixa Doctoral INPhINIT Fellowships</a></span>
+          <span class="fellowship-deadline">Deadline ~January</span>
+        </div>
+        <div class="fellowship-item">
+          <span class="fellowship-name"><a href="https://agaur.gencat.cat/en/beques-i-ajuts/convocatories-per-temes/" target="_blank">AGAUR Joan Oró Fellowship</a></span>
+          <span class="fellowship-deadline">Opens ~September–October</span>
+        </div>
+        <div class="fellowship-item">
+          <span class="fellowship-name"><a href="https://www.fundacionareces.es/" target="_blank">Ayudas Fundación Ramón Areces — Tesis Doctorales</a></span>
+          <span class="fellowship-deadline">Opens ~September–October</span>
+        </div>
+        <div class="fellowship-item">
+          <span class="fellowship-name"><a href="https://euro-fusion.org/eurofusion-news/applications-open-for-the-2026-eurofusion-bernard-bigot-researcher-grants/" target="_blank">EUROfusion Engineering Grants (PhD track)</a></span>
+          <span class="fellowship-deadline">Opens ~June–July</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fellowship-section">
+      <div class="fellowship-section-title">Internships</div>
+      <div class="fellowship-list">
+        <div class="fellowship-item">
+          <span class="fellowship-name"><a href="https://www.bsc.es/join-us/excellence-career-opportunities/bsc-international-summer-hpc-internship-programme" target="_blank">BSC International Summer HPC Internship Programme</a></span>
+          <span class="fellowship-deadline">Opens ~March · 10 weeks June–Sep</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PAGE: CONTACT ==================== -->
+<div id="page-contact" class="page">
+  <div class="contact-wrap">
+    <div class="contact-left">
+      <h1 class="contact-tagline">Always open for<br><em>collaboration</em><br>worldwide.</h1>
+      <div class="contact-detail">
+        <div class="contact-detail-label">Email</div>
+        <div class="contact-detail-val"><a href="/cdn-cgi/l/email-protection#bfd5cad3d6d091d8cacbd6dacdcddac5ffddccdc91dacc"><span class="__cf_email__" data-cfemail="ea809f868385c48d9f9e838f98988f90aa889989c48f99">[email&#160;protected]</span></a></div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-label">Address</div>
+        <div class="contact-detail-val">Barcelona Supercomputing Center<br>Plaça d'Eusebi Güell, 1–3<br>08034 Barcelona, Spain</div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-label">Institution</div>
+        <div class="contact-detail-val">BSC-CASE · Materials Science Team</div>
+      </div>
+    </div>
+    <div class="contact-right">
+      <p style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem;">Connect</p>
+      <div class="contact-links">
+        <a class="contact-link-item" href="https://www.linkedin.com/in/juliogutierrezmoreno/" target="_blank">
+          <span class="contact-link-name">LinkedIn</span>
+          <span class="contact-link-arr">↗</span>
+        </a>
+        <a class="contact-link-item" href="https://scholar.google.com/citations?user=b8GbJRMAAAAJ&hl=en" target="_blank">
+          <span class="contact-link-name">Google Scholar</span>
+          <span class="contact-link-arr">↗</span>
+        </a>
+        <a class="contact-link-item" href="https://www.bsc.es" target="_blank">
+          <span class="contact-link-name">Barcelona Supercomputing Center</span>
+          <span class="contact-link-arr">↗</span>
+        </a>
+        <a class="contact-link-item" href="https://concert-japan.eu/9th-joint-call-kick-off-workshop/" target="_blank">
+          <span class="contact-link-name">EIG-Concert Japan Project</span>
+          <span class="contact-link-arr">↗</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== FOOTER ======================== -->
+<footer>
+  <p>© Julio J. Gutiérrez Moreno · BSC-CASE · Barcelona</p>
+  <nav class="footer-nav">
+    <a href="#" onclick="showPage('home')">Home</a>
+    <a href="#" onclick="showPage('projects')">Projects</a>
+    <a href="#" onclick="showPage('publications')">Publications</a>
+    <a href="#" onclick="showPage('join')">Join Us</a>
+    <a href="#" onclick="showPage('contact')">Contact</a>
+  </nav>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ---- Page Routing ----
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const navEl = document.getElementById('nav-'+id);
+  if (navEl) navEl.classList.add('active');
+  window.scrollTo({top:0, behavior:'instant'});
+  // trigger scroll reveal for current page
+  setTimeout(revealVisible, 80);
+  return false;
+}
+
+// ---- Scroll Reveal ----
+const revealTargets = () => document.querySelectorAll('.proj-card, .pub-item, .fellowship-item');
+function revealVisible() {
+  revealTargets().forEach((el,i) => {
+    const rect = el.getBou
