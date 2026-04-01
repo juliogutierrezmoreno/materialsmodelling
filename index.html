@@ -12,6 +12,7 @@
   --bg: #09090f;
   --surface: #111118;
   --surface2: #16161f;
+  --surface3: #1e1e2b;
   --border: rgba(255,255,255,0.07);
   --border-hover: rgba(126,184,247,0.25);
   --text: #e8e8f0;
@@ -60,11 +61,11 @@ body::before {
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 6vw;
+  padding: 0 8vw;
   height: 64px;
-  background: rgba(9,9,15,0.85);
+  background: rgba(255, 255, 255, 0.08); 
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .nav-logo {
@@ -86,7 +87,7 @@ nav {
   font-size: 0.65rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--muted2);
   text-decoration: none;
   padding: 0 1.2rem;
   height: 64px;
@@ -109,7 +110,7 @@ nav {
 .hero {
   min-height: calc(100vh - 64px);
   display: flex; flex-direction: column; justify-content: center;
-  padding: 5rem 10vw 5rem;
+  padding: 5rem 14vw 5rem;
   position: relative; overflow: hidden;
 }
 
@@ -144,7 +145,7 @@ nav {
 
 .hero-body {
   margin-top: 2rem;
-  max-width: 600px;
+  max-width: 800px;
   color: var(--muted2);
   font-size: 1rem;
   line-height: 1.75;
@@ -224,7 +225,7 @@ nav {
    PROJECTS PAGE
 ======================== */
 .page-header {
-  padding: 4rem 10vw 2rem;
+  padding: 4rem 14vw 2rem;
 }
 .page-title {
   font-family: 'Cormorant Garamond', serif;
@@ -242,7 +243,7 @@ nav {
 }
 
 .projects-grid {
-  padding: 2rem 10vw 6rem;
+  padding: 2rem 14vw 6rem;
   display: flex; flex-direction: column; gap: 1px;
 }
 
@@ -282,9 +283,17 @@ nav {
 .proj-tag { font-family:'DM Mono',monospace; font-size:.58rem; letter-spacing:.1em; text-transform:uppercase; padding:.3rem .75rem; border:1px solid var(--border); color:var(--muted); border-radius:2px; transition:border-color .2s,color .2s; }
 .proj-card:hover .proj-tag { border-color: rgba(126,184,247,0.2); color: var(--muted2); }
 
-.proj-visual { padding: 2rem; display: flex; align-items: center; justify-content: center; background: var(--surface2); min-height: 240px; }
-.proj-svg { width: 110px; height: 110px; opacity: .55; transition: opacity .3s, transform .4s; }
-.proj-card:hover .proj-svg { opacity: 1; transform: scale(1.06) rotate(1.5deg); }
+.proj-visual { 
+  padding: 2rem; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  background: rgba(255, 255, 255, 0.12); 
+  min-height: 240px; 
+}
+
+.proj-svg { width: 120px; height: 120px; opacity: .85; transition: opacity .3s, transform .4s; }
+.proj-card:hover .proj-svg { opacity: 1; transform: scale(1.16) rotate(1.5deg); }
 
 /* Alt layout */
 .proj-card.alt { direction: rtl; }
@@ -294,13 +303,13 @@ nav {
 /* ========================
    PUBLICATIONS PAGE
 ======================== */
-.pubs-wrap { padding: 2rem 10vw 6rem; }
+.pubs-wrap { padding: 2rem 14vw 6rem; }
 
 .year-group { margin-bottom: 3.5rem; }
 .year-label {
   font-family: 'Cormorant Garamond', serif;
   font-size: 3.5rem; font-weight: 300;
-  color: rgba(126,184,247,0.2);
+  color: rgba(126,184,247,0.6);
   line-height: 1;
   margin-bottom: 1rem;
   padding-bottom: 1rem;
@@ -336,7 +345,7 @@ nav {
 /* ========================
    JOIN US PAGE
 ======================== */
-.join-wrap { padding: 2rem 10vw 6rem; }
+.join-wrap { padding: 2rem 14vw 6rem; }
 .join-intro { max-width: 640px; color: var(--muted2); font-size: .95rem; line-height: 1.8; margin-bottom: 3rem; }
 
 .fellowship-section { margin-bottom: 3rem; }
@@ -363,13 +372,19 @@ nav {
 .fellowship-name { font-size: .9rem; color: var(--text); }
 .fellowship-name a { color: var(--accent); text-decoration: none; transition: color .2s; cursor: none; }
 .fellowship-name a:hover { color: var(--text); }
-.fellowship-deadline { font-family: 'DM Mono', monospace; font-size: .6rem; letter-spacing: .1em; color: var(--muted); white-space: nowrap; }
+.fellowship-deadline { 
+  font-family: 'DM Mono', monospace; 
+  font-size: .6rem; 
+  letter-spacing: .1em; 
+  color: var(--muted2);
+  white-space: nowrap; 
+}
 
 /* ========================
    CONTACT PAGE
 ======================== */
 .contact-wrap {
-  padding: 4rem 10vw 6rem;
+  padding: 4rem 14vw 6rem;
   display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
 }
 .contact-left {}
@@ -407,13 +422,13 @@ nav {
 ======================== */
 .sdiv {
   height: 1px; background: var(--border);
-  margin: 0 10vw;
+  margin: 0 14vw;
 }
 .slabel {
   font-family: 'DM Mono', monospace;
   font-size: .6rem; letter-spacing: .25em; text-transform: uppercase;
   color: var(--muted);
-  padding: 0 10vw;
+  padding: 0 14vw;
   margin-bottom: 2.5rem;
   display: flex; align-items: center; gap: 1.2rem;
 }
@@ -424,7 +439,7 @@ nav {
 ======================== */
 footer {
   position: relative; z-index: 1;
-  padding: 2.5rem 10vw;
+  padding: 2.5rem 14vw;
   border-top: 1px solid var(--border);
   display: flex; align-items: center; justify-content: space-between;
   gap: 1rem;
@@ -465,7 +480,6 @@ footer p { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.1em
 <div id="cur"></div>
 <div id="cur-ring"></div>
 
-<!-- ======================== NAV ======================== -->
 <nav>
   <a class="nav-logo" href="#" onclick="showPage('home')">JGM</a>
   <ul class="nav-links">
@@ -477,7 +491,6 @@ footer p { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.1em
   </ul>
 </nav>
 
-<!-- ==================== PAGE: HOME ==================== -->
 <div id="page-home" class="page active">
   <section class="hero">
     <div class="hero-bg">
@@ -486,35 +499,26 @@ footer p { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.1em
     </div>
     <p class="eyebrow">Senior Researcher · Barcelona Supercomputing Center</p>
     <h1>Computational<br><em>Materials</em><br>Science</h1>
-<div class="hero-body">
-    <p>
-      I am <strong>Julio Gutiérrez Moreno</strong>, PhD and Senior Researcher leading the 
-      <a href="https://www.bsc.es/" target="_blank"> <strong>Materials Science team</strong> </a> 
-      at the Computer Applications in Science and Engineering (CASE) department of the 
-      <strong>Barcelona Supercomputing Center (BSC)</strong>. 
+    <p class="hero-body">
+      I am <strong>Julio Gutiérrez Moreno</strong>, PhD and Senior Researcher leading the <strong>Materials Science team</strong> at 
+      the Computer Applications in Science and Engineering (CASE) department of the Barcelona Supercomputing Center (BSC). 
       In my research, I use atomistic simulation methods to study fundamental properties of materials. 
       Most of my research is dedicated to the modelling and simulation at the atomic-scale, 
       based on ab initio Density Functional Theory (DFT), beyond DFT methods and classical molecular Dynamics (MD) simulations, 
-      with a special focus on developing and testing novel methodologies for their efficient implementation on 
-      high-performance computing (HPC) platforms.
+      with a special focus on developing and testing novel methodologies for their efficient implementation on high-performance 
+      computing (HPC) platforms. 
     </p>
-
-    <p>
-      I did my PhD at the Department of Materials Science and Engineering at the 
-      University of Ioannina in Greece, 
-      and worked as Postdoctoral Researcher at the Materials Modelling for Devices group, in 
-      Tyndall National Institute
-      (Republic of Ireland) and at the Institute for Advanced Study at 
-     Shenzhen University (People’s Republic of China).
+    <p class="hero-body">
+      I did my PhD at the Department of Materials Science and Engineering at the University of Ioannina in Greece, 
+      and worked as Postdoctoral Researcher at the Materials Modelling for Devices group, in Tyndall National Institute 
+      (Republic of Ireland) and at the Institute for Advanced Study at Shenzhen University (People’s Republic of China).
     </p>
-      
-    <p>
+    <p class="hero-body">      
       I have created this website to keep it as a contact point with other researchers and potential collaborators. 
       Moreover, I can also share the most recent outcomes of my current projects. In this way, all the material will 
-      be kept here and papers will be freely distributed after journal embargo period, without being subjected to 
-      publisher websites or changes of my research institute.
+      be kept here and papers will be freely distributed after journal embargo period, without being subjected to publishers 
+      websites or changes of my research institute.
     </p>
-</div>
     <div class="quote-block">
       <blockquote>"In theory there is no difference between theory and practice — in practice there is."</blockquote>
       <cite>— Yogi Berra</cite>
@@ -522,7 +526,6 @@ footer p { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.1em
   </section>
 </div>
 
-<!-- ==================== PAGE: PROJECTS ==================== -->
 <div id="page-projects" class="page">
   <div class="page-header">
     <h1 class="page-title">Research <em>Projects</em></h1>
@@ -535,14 +538,19 @@ footer p { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.1em
       <div class="proj-body">
         <div>
           <h2 class="proj-title c-blue">Ab Initio Simulations at the Exascale</h2>
-          <p class="proj-text">The Materials Science Group at BSC-CASE participates in the NOMAD and MaX Centres of Excellence. Funded by the European Commission, these projects adapt ab initio computational methods for incoming exascale platforms. We contribute to benchmarking and development of codes including SIESTA, Abinit, exciting, FHI-aims and GPAW, and libraries such as ELPA.</p>
+          <p class="proj-text">The Materials Science Group at BSC-CASE participate in the MAterials at the eXascale (MAX) and 
+            NOvel MAterils Discovery (NOMAD) Centres of Excellence. Funded by the European Commission, through the EuroHPC Joint Undertaking, 
+            these projects aim to adapt ab initio computational materials science codes for incoming exascale platforms. 
+            We contribute to deployment, benchmarking and optimisation of codes including SIESTA, Abinit, exciting, FHI-aims and GPAW, 
+            and libraries such as ELSI and ELPA. We also ported key eigensolver kernels for efficient implementation on EU hardware based on RISC-V.
+            We also work on validating low-scaling algorithms within SIESTA and BigDFT, using cutting-edge HPC infrastructures to extend the reach 
+            of DFT-accuracy simulations to unprecedented system sizes.
+          </p>
         </div>
         <div class="proj-tags">
-          <span class="proj-tag">NOMAD CoE</span>
-          <span class="proj-tag">MaX CoE</span>
-          <span class="proj-tag">HPC</span>
-          <span class="proj-tag">Exascale</span>
-          <span class="proj-tag">SIESTA</span>
+        <a href="https://nomad-coe.eu" class="proj-tag"><span>NOMAD CoE</span></a>
+        <a href="https://max-centre.eu" class="proj-tag"><span>MaX CoE</span></a>
+        <a href="https://siesta-project.org" class="proj-tag"><span>SIESTA</span></a>
         </div>
       </div>
       <div class="proj-visual">
@@ -562,13 +570,13 @@ footer p { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.1em
       <div class="proj-body">
         <div>
           <h2 class="proj-title c-green">Data Science for Materials</h2>
-          <p class="proj-text">Our team serves as one of the main HPC nodes of the Materials Commons for Europe initiative — a collaborative platform for sharing and managing materials science research data across the EU. Applying FAIR principles, it standardises how experimental and computational results are stored, accelerating discovery from next-generation alloys to sustainable energy solutions.</p>
+          <p class="proj-text">Our team serves as one of the main HPC nodes of the Materials Commons for Europe initiative, 
+            a collaborative platform for sharing and managing materials science research data across the EU. 
+            Applying FAIR principles, it standardises how experimental and computational results are stored, accelerating discovery 
+            from next-generation alloys to sustainable energy solutions.</p>
         </div>
         <div class="proj-tags">
-          <span class="proj-tag">FAIR Data</span>
-          <span class="proj-tag">Materials Commons</span>
-          <span class="proj-tag">Open Science</span>
-          <span class="proj-tag">ML</span>
+          <a href="https://materialscommons.eu" class="proj-tag"><span>Materials Commons</span></a>
         </div>
       </div>
       <div class="proj-visual">
@@ -589,18 +597,20 @@ footer p { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.1em
       </div>
     </div>
 
+  
     <div class="proj-card">
       <div class="proj-body">
         <div>
           <h2 class="proj-title c-yellow">Metal-Oxide Surfaces &amp; 2D Nanosheets</h2>
-          <p class="proj-text">Theory-guided screening and atomically precise synthesis for nanostructured materials in catalysis, batteries, and water depollution. I coordinate an EIG-Concert Japan project on machine-learning-driven design of atomically-layered heterostructures for green H₂ production, in collaboration with partners in Japan and Turkey.</p>
+          <p class="proj-text">Nowadays simulations are reaching ever‑larger scales, while experiments are probing ever‑smaller structures, 
+            creating a fertile overlap where atomistic modeling meets the laboratory. In the MLALH project, which I coordinate under the 
+            EIG‑Concert Japan framework, we exploit this convergence to design atomically layered heterostructures for green hydrogen production. 
+            Combining theory and experiment, our team integrates machine‑learning‑driven simulations with hands‑on synthesis and characterisation, 
+            working closely with partners at İstinye University (Türkiye) and at RIKEN and Shibaura Institute of Technology (Japan).
+</p>
         </div>
         <div class="proj-tags">
-          <span class="proj-tag">Green H₂</span>
-          <span class="proj-tag">Catalysis</span>
-          <span class="proj-tag">2D Materials</span>
-          <span class="proj-tag">HfO₂</span>
-          <span class="proj-tag">TiO₂</span>
+          <a href="https://concert-japan.eu/9th-joint-call-kick-off-workshop/" class="proj-tag"><span>Concert-Japan MLALH project</span></a>
         </div>
       </div>
       <div class="proj-visual">
@@ -620,15 +630,19 @@ footer p { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.1em
     <div class="proj-card alt">
       <div class="proj-body">
         <div>
-          <h2 class="proj-title c-pink">Fusion Materials &amp; Low-Scaling Ab Initio</h2>
-          <p class="proj-text">Standard DFT scales as O(N³). Linear-scaling algorithms allow doubling atom count with only double computation time. In the FusionCAT project we use the LS version of BigDFT to simulate neutron-irradiation defects in tungsten — the primary plasma-facing candidate material for fusion power — with ab initio accuracy at realistic scales.</p>
+          <h2 class="proj-title c-pink">Fusion Materials </h2>
+          <p class="proj-text">Fusion materials are key for the development of fusion power technology, as 
+            they must withstand extreme irradiation environments. To capture defect behavior at realistic scales, 
+            we employ low‑scaling DFT algorithms that overcome the traditional O(N³) bottleneck, enabling ab initio accuracy 
+            for systems large enough to represent complex defect interactions. 
+            Complementing this, we use classical molecular dynamics (MD) to study irradiation‑induced effects, 
+            applying explainable AI methods to extract interpretable structure–property relationships. 
+            To further bridge scales, we develop machine‑learned interatomic potentials (MLIPs) for irradiated metals, 
+            leveraging multifidelity DFT training sets and systematically evaluating diverse ML architectures to ensure robust, 
+            transferable models for fusion‑relevant conditions.</p>
         </div>
         <div class="proj-tags">
-          <span class="proj-tag">BigDFT</span>
-          <span class="proj-tag">Tungsten</span>
-          <span class="proj-tag">Fusion</span>
-          <span class="proj-tag">FusionCAT</span>
-          <span class="proj-tag">LS-DFT</span>
+          <a href="https://fusioncat.eu" class="proj-tag"><span>FusionCAT project</span></a>
         </div>
       </div>
       <div class="proj-visual">
@@ -647,13 +661,13 @@ footer p { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.1em
       <div class="proj-body">
         <div>
           <h2 class="proj-title c-purple">Antifouling Coatings for Water Sensors</h2>
-          <p class="proj-text">In the UisceSense project, theoretical methods simulate biomolecule adsorption at modified surfaces to develop new coatings preventing biofouling on water sensor surfaces. Research covered TiN-TiO₂ interfaces, surfaces, and neonicotinoid sensing for real-time detection of hazardous substances in natural water sources.</p>
+          <p class="proj-text">In the UisceSense project, theoretical methods simulate biomolecule adsorption at modified surfaces to develop 
+            new coatings preventing biofouling on water sensor surfaces. Research covered TiN-TiO₂ interfaces, surfaces, and neonicotinoid sensing 
+            for real-time detection of hazardous substances in natural water sources.</p>
         </div>
         <div class="proj-tags">
-          <span class="proj-tag">Biofouling</span>
-          <span class="proj-tag">TiN–TiO₂</span>
-          <span class="proj-tag">SERS</span>
-          <span class="proj-tag">Water Quality</span>
+          <a href="https://materialsmodelling.wordpress.com/wp-content/uploads/2022/03/17.-development-of-proof-of-concept-portable-sensors-for-detection-of-heavy-metals-and-organic-pesticides-and-investigation-of-anti-biofouling-materials.pdf" 
+          class="proj-tag"><span>UisceSense EPA report</span></a>
         </div>
       </div>
       <div class="proj-visual">
@@ -672,7 +686,10 @@ footer p { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.1em
       <div class="proj-body">
         <div>
           <h2 class="proj-title c-orange">Low-Rigidity Ti Alloys</h2>
-          <p class="proj-text">Developing a computational procedure from ab initio toward large-scale molecular dynamics for investigating and designing low-rigidity β-type Ti-based alloys for orthopaedic implants. Studied structural, electronic, and mechanical properties of TiNb alloys, as well as ternary systems TiNbIn, TiNbSn, and TiNbHf.</p>
+          <p class="proj-text">Developing a computational procedure from ab initio toward large-scale molecular dynamics 
+            for investigating and designing low-rigidity β-type Ti-based alloys for orthopaedic implants. 
+            Studied structural, electronic, and mechanical properties of TiNb alloys, as well as ternary systems 
+            TiNbIn, TiNbSn, and TiNbHf.</p>
         </div>
         <div class="proj-tags">
           <span class="proj-tag">TiNb Alloys</span>
@@ -706,11 +723,12 @@ footer p { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.1em
   </div>
 </div>
 
-<!-- ==================== PAGE: PUBLICATIONS ==================== -->
 <div id="page-publications" class="page">
   <div class="page-header">
     <h1 class="page-title"><em>Publications</em></h1>
-    <p class="page-desc">Papers with direct download links. An up-to-date list is also available on <a href="https://scholar.google.com/citations?user=b8GbJRMAAAAJ&hl=en" style="color:var(--accent);text-decoration:none;cursor:none;" target="_blank">Google Scholar</a>.</p>
+    <p class="page-desc">This list contains links with direct access to the papers. 
+      A more up-to-date list can be accessed from <a href="https://scholar.google.com/citations?user=b8GbJRMAAAAJ&hl=en" 
+      style="color:var(--accent);text-decoration:none;cursor:none;" target="_blank">Google Scholar</a>.</p>
   </div>
 
   <div class="pubs-wrap">
@@ -906,13 +924,16 @@ footer p { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.1em
   </div>
 </div>
 
-<!-- ==================== PAGE: JOIN US ==================== -->
 <div id="page-join" class="page">
   <div class="page-header">
     <h1 class="page-title"><em>Join</em> Us</h1>
   </div>
   <div class="join-wrap">
-    <p class="join-intro">We typically advertise open positions through the BSC website and dedicated networks such as Psi-k, but we are always happy to receive spontaneous applications and provide support in preparing projects aligned with our research interests. Below is a non-exhaustive list of fellowships for which we can support candidates. Dates are estimates — please verify all information as links and deadlines change year to year.</p>
+    <p class="join-intro">We typically advertise open positions through the BSC website and dedicated networks such as Psi-k, 
+      but we are always happy to receive spontaneous applications and provide support in preparing projects aligned with our 
+      research interests. Below is a non-exhaustive list of fellowships for which we can support candidates. Dates are estimates 
+      — please verify all information as links and deadlines change year to year.</p>
+      
 
     <div class="fellowship-section">
       <div class="fellowship-section-title">Postdoctoral Positions</div>
@@ -978,7 +999,6 @@ footer p { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.1em
   </div>
 </div>
 
-<!-- ==================== PAGE: CONTACT ==================== -->
 <div id="page-contact" class="page">
   <div class="contact-wrap">
     <div class="contact-left">
@@ -1003,16 +1023,8 @@ footer p { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.1em
           <span class="contact-link-name">LinkedIn</span>
           <span class="contact-link-arr">↗</span>
         </a>
-        <a class="contact-link-item" href="https://scholar.google.com/citations?user=b8GbJRMAAAAJ&hl=en" target="_blank">
-          <span class="contact-link-name">Google Scholar</span>
-          <span class="contact-link-arr">↗</span>
-        </a>
-        <a class="contact-link-item" href="https://www.bsc.es" target="_blank">
-          <span class="contact-link-name">Barcelona Supercomputing Center</span>
-          <span class="contact-link-arr">↗</span>
-        </a>
-        <a class="contact-link-item" href="https://concert-japan.eu/9th-joint-call-kick-off-workshop/" target="_blank">
-          <span class="contact-link-name">EIG-Concert Japan Project</span>
+        <a class="contact-link-item" href="https://www.bsc.es/discover-bsc/organisation/scientific-structure/materials-science" target="_blank">
+          <span class="contact-link-name">BSC Materials Science website</span>
           <span class="contact-link-arr">↗</span>
         </a>
       </div>
@@ -1020,10 +1032,9 @@ footer p { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.1em
   </div>
 </div>
 
-<!-- ======================== FOOTER ======================== -->
 <footer>
-  <p>© Julio J. Gutiérrez Moreno · BSC-CASE · Barcelona</p>
-  <nav class="footer-nav">
+  <p>© Julio Gutiérrez Moreno · BSC-CASE · Barcelona</p>
+  <nav class="navbar is-dark" role="navigation" aria-label="main navigation"></nav>
     <a href="#" onclick="showPage('home')">Home</a>
     <a href="#" onclick="showPage('projects')">Projects</a>
     <a href="#" onclick="showPage('publications')">Publications</a>
@@ -1077,6 +1088,16 @@ function revealVisible() {
 }
 window.addEventListener('scroll', revealVisible, {passive:true});
 revealVisible();
+
+// ---- Open External Links in New Tab ----
+// Automatically forces any link that isn't a menu hash ('#') or an email address to open in a new tab.
+document.querySelectorAll('a').forEach(a => {
+  const href = a.getAttribute('href');
+  if (href && !href.startsWith('#') && !href.startsWith('mailto:')) {
+    a.setAttribute('target', '_blank');
+    a.setAttribute('rel', 'noopener noreferrer'); // Security best practice when using _blank
+  }
+});
 </script>
 </body>
 </html>
